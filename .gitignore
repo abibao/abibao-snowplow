@@ -1,0 +1,13 @@
+npm-debug.log
+package-lock.json
+nconf.json
+node_modules
+coverage
+*~
+dist
+.DS_Store
+.idea
+*.log
+.queues
+server/data
+dump.yml

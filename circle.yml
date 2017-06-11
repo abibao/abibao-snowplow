@@ -1,0 +1,19 @@
+machine:
+  timezone:
+    Europe/Paris
+  node:
+    version: 6
+  services:
+    - docker
+test:
+  override:
+    - npm install
+    - npm run build
+    - npm test
+deployment:
+  prod:
+    branch: master
+    commands:
+      - docker build -t abibao/abibao-snowplow .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push docker.io/abibao/abibao-snowplow
