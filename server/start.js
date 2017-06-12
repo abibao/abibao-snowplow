@@ -17,22 +17,22 @@ let server = new Hapi.Server({
   }
 })
 
-let conf = YAML.load(path.resolve(__dirname, 'dump.yml'))
+let conf = require('../config/default')
 
 // Rethink
 let options = {
-  host: conf.rethinkdb.host,
-  port: conf.rethinkdb.port,
-  db: conf.rethinkdb.database,
-  user: conf.rethinkdb.user,
-  password: conf.rethinkdb.password,
+  host: conf.rethink.host,
+  port: conf.rethink.port,
+  db: conf.rethink.database,
+  user: conf.rethink.user,
+  password: conf.rethink.password,
   silent: true
 }
 server.r = require('thinky')(options).r
 
 server.connection({
-  host: '0.0.0.0',
-  port: 4040
+  host: conf.host,
+  port: conf.port
 })
 
 const pool = new pg.Pool(conf.postgres)

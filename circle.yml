@@ -8,7 +8,6 @@ machine:
 test:
   override:
     - npm install
-    - npm run build
     - npm test
 deployment:
   prod:
