@@ -7,7 +7,7 @@ WORKDIR /usr/app
 
 COPY package.json /usr/app/package.json
 COPY config/default.js /usr/app/config/default.js
-COPY server-snowplow /usr/app/server
+COPY server /usr/app/server
 
 RUN apk add --update make gcc g++ python git
 
