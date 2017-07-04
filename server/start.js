@@ -1,6 +1,4 @@
 const Hapi = require('hapi')
-const YAML = require('yamljs')
-const path = require('path')
 const pg = require('pg')
 
 const Routes = require('./routes')

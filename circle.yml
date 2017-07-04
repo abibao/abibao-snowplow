@@ -14,5 +14,5 @@ deployment:
     branch: master
     commands:
       - docker build -t abibao/abibao-snowplow .
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker login -u $DOCKER_USER -p $DOCKER_PASS
       - docker push docker.io/abibao/abibao-snowplow

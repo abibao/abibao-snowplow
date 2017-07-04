@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Echo test specified\" && exit 0",
+    "test": "node_modules/.bin/standard --verbose | snazzy",
     "start:server": "NODE_ENV=development node_modules/.bin/nodemon --config nodemon.json server/start.js"
   },
   "repository": {
@@ -28,12 +28,15 @@
     "pg": "6.4.0",
     "request": "2.81.0",
     "request-promise": "4.2.1",
-    "servicebus": "^2.0.10",
+    "servicebus": "2.0.10",
     "servicebus-retry": "0.0.11",
     "thinky": "2.3.8",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
-    "nodemon": "1.11.0"
+    "chai": "^4.0.2",
+    "nodemon": "1.11.0",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2"
   }
 }
