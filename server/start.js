@@ -54,7 +54,11 @@ server.start((error) => {
     process.exit(1)
   }
   console.log('Server running at:', server.info.uri)
-  const url = 'amqp://guest:guest@rabbitmq:5672'
+  let url = 'amqp://'
+  if (conf.rabbitmq.user && conf.rabbitmq.pass) {
+    url = url + conf.rabbitmq.user + ':' + conf.rabbitmq.pass + '@'
+  }
+  url = url + conf.rabbitmq.host + ':' + conf.rabbitmq.port
   server.bus = require('servicebus').bus({url})
   server.bus.on('error', (error) => {
     console.log(error)

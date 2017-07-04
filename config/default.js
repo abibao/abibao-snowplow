@@ -1,6 +1,5 @@
 'use strict'
 
-const path = require('path')
 const nconf = require('nconf')
 
 nconf.argv().env().file({ file: 'nconf.json' })
@@ -18,14 +17,16 @@ module.exports = {
     host: nconf.get('ABIBAO_POSTGRES_HOST') || 'localhost',
     port: nconf.get('ABIBAO_POSTGRES_PORT') || 5432,
     database: nconf.get('ABIBAO_POSTGRES_DB') || 'infra',
-    username: nconf.get('ABIBAO_POSTGRES_USER') || 'infra',
+    user: nconf.get('ABIBAO_POSTGRES_USER') || 'infra',
     password: nconf.get('ABIBAO_POSTGRES_PASSWORD') || 'infra',
+    max: 10,
+    idleTimeoutMillis: 30000
   },
   rethink: {
     host: nconf.get('ABIBAO_RETHINK_HOST') || 'localhost',
     port: nconf.get('ABIBAO_RETHINK_PORT') || 28115,
     database: nconf.get('ABIBAO_RETHINK_DB') || 'infra',
     username: nconf.get('ABIBAO_RETHINK_USER') || 'infra',
-    password: nconf.get('ABIBAO_RETHINK_PASSWORD') || 'infra',
+    password: nconf.get('ABIBAO_RETHINK_PASSWORD') || 'infra'
   }
 }
