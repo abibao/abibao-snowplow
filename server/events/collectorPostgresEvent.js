@@ -6,7 +6,7 @@ const rp = require('request-promise')
 
 module.exports = (message, server) => {
   console.log('EVENT_COLLECTOR_POSTGRES', message)
-  const cacheDir = path.resolve(__dirname, '../data/collector/postgres')
+  const cacheDir = path.resolve(__dirname, '../../data/collector/postgres')
   fse.ensureDirSync(cacheDir)
   server.p.query('SELECT * FROM ' + message.table + ' LIMIT 1000 OFFSET $1::integer', [message.offset], (error, result) => {
     if (error) {

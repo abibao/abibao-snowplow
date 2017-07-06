@@ -9,5 +9,4 @@ dist
 .idea
 *.log
 .queues
-server/data
-dump.yml
+data

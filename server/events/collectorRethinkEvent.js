@@ -6,7 +6,7 @@ const rp = require('request-promise')
 
 module.exports = (message, server) => {
   console.log('EVENT_COLLECTOR_RETHINK', message)
-  const cacheDir = path.resolve(__dirname, '../data/collector/rethinkdb')
+  const cacheDir = path.resolve(__dirname, '../../data/collector/rethinkdb')
   fse.ensureDirSync(cacheDir)
   server.r.table(message.table).skip(message.skip).limit(message.limit)
     .then(function (result) {

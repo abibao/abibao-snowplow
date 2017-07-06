@@ -17,6 +17,7 @@ RUN npm install --production && \
 RUN apk del make gcc g++ python git && \
     rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
 
+RUN mkdir -p /usr/app/data
 VOLUME /usr/app/data
 
 EXPOSE 80
