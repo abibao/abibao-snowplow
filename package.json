@@ -26,6 +26,7 @@
     "joi": "11.0.1",
     "nconf": "0.8.4",
     "pg": "7.3.0",
+    "progress": "2.0.0",
     "request": "2.81.0",
     "request-promise": "4.2.1",
     "servicebus": "2.0.10",
