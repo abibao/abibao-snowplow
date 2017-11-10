@@ -3,6 +3,7 @@ const async = require('async')
 const ProgressBar = require('progress')
 const glob = require('glob-promise')
 const YAML = require('yamljs')
+const Promise = require('bluebird')
 
 let options = {
   db: 'aggregators',
@@ -10,11 +11,17 @@ let options = {
 }
 const r = require('thinky')(options).r
 
-const cacheDir = path.resolve(__dirname, 'data/collector/rethinkdb/individuals')
+const rethinkdbDir = path.resolve(__dirname, 'data/collector/rethinkdb')
+const postgresDir = path.resolve(__dirname, 'data/collector/postgres')
 
-glob(cacheDir + '/**/*.yml')
-  .then(files => {
-    const bar = new ProgressBar('  aggregators [:bar] :percent :etas', { width: 40, total: files.length })
+let promises = {
+  rethinkdb: glob(rethinkdbDir + '/individuals/**/*.yml'),
+  postgres: glob(postgresDir + '/individuals/**/*.yml')
+}
+
+const aggregator = function (files, key, value) {
+  return new Promise((resolve, reject) => {
+    const bar = new ProgressBar('  aggregators [:bar] :percent :etas', {width: 40, total: files.length})
     async.mapLimit(files, 10, (file, next) => {
       let individual = YAML.load(file)
       r.table('individuals')
@@ -22,10 +29,10 @@ glob(cacheDir + '/**/*.yml')
           return r.table('individuals').insert({id: individual.email})
         })
         .then(() => {
-          return r.table('individuals').get(individual.email).update({
-            idRethinkdb: individual.id,
-            createdAt: new Date(individual.createdAt)
-          })
+          let data = {}
+          data[key] = individual[value]
+          data.createdAt = new Date(individual.createdAt)
+          return r.table('individuals').get(individual.email).update(data)
         })
         .then(() => {
           bar.tick()
@@ -37,12 +44,28 @@ glob(cacheDir + '/**/*.yml')
         })
     }, error => {
       if (error) {
-        console.log(error)
-        process.exit(1)
+        reject(error)
       } else {
-        process.exit(0)
+        resolve()
       }
     })
+  })
+}
+
+let allFiles = {}
+Promise.props(promises)
+  .then(files => {
+    allFiles = files
+    console.log('START', 'rethinkdb', allFiles.rethinkdb.length)
+    return aggregator(allFiles.rethinkdb, 'uuid', 'id')
+  })
+  .then(() => {
+    console.log('START', 'postgres', allFiles.postgres.length)
+    return aggregator(allFiles.postgres, 'urn', 'urn')
+  })
+  .then(() => {
+    console.log('DONE')
+    process.exit(0)
   })
   .catch(error => {
     console.log(error)
