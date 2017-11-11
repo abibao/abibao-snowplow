@@ -55,7 +55,6 @@ node {
           http://172.90.0.3:4040/api/aggregator/answers/postgres \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
-          -F source=postgres \
           -F callback=${hook.getURL()}"
       data = waitForWebhook hook
     }
