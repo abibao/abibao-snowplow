@@ -27,6 +27,7 @@
     "glob-promise": "3.3.0",
     "hapi": "16.6.2",
     "joi": "13.0.1",
+    "legit": "0.0.7",
     "nconf": "0.9.1",
     "node-dogstatsd": "0.0.6",
     "pg": "7.4.0",

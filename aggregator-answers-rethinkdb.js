@@ -16,7 +16,7 @@ const rethinkdbDir = path.resolve(__dirname, 'data/collector/rethinkdb')
 const postgresDir = path.resolve(__dirname, 'data/collector/postgres')
 
 let promises = {
-  surveys: glob(rethinkdbDir + '/surveys/2017/11/**/*.yml'),
+  surveys: glob(rethinkdbDir + '/surveys/**/*.yml'),
   campaigns: glob(rethinkdbDir + '/campaigns/**/*.yml'),
   choices: glob(rethinkdbDir + '/campaigns_items_choices/**/*.yml'),
   campaignsNew: glob(postgresDir + '/campaigns/**/*.yml')

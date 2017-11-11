@@ -2,10 +2,12 @@ const Hapi = require('hapi')
 const pg = require('pg')
 
 const Routes = require('./routes')
+const conf = require('../config/default')
 
 const collectorRethinkEvent = require('./events/collectorRethinkEvent')
 const collectorPostgresEvent = require('./events/collectorPostgresEvent')
 const aggregatorIndividualsEvent = require('./events/aggregatorIndividualsEvent')
+const aggregatorAnswersPostgresEvent = require('./events/aggregatorAnswersPostgresEvent')
 
 let server = new Hapi.Server({
   debug: false,
@@ -15,8 +17,6 @@ let server = new Hapi.Server({
     }
   }
 })
-
-let conf = require('../config/default')
 
 // Rethink
 let options = {
@@ -64,15 +64,10 @@ server.start((error) => {
     process.exit(1)
   })
   server.bus.on('ready', () => {
-    server.bus.listen('EVENT_COLLECTOR_RETHINK', (message) => {
-      collectorRethinkEvent(message, server)
-    })
-    server.bus.listen('EVENT_COLLECTOR_POSTGRES', (message) => {
-      collectorPostgresEvent(message, server)
-    })
-    server.bus.listen('EVENT_AGGREGATOR_INDIVIDUALS', (message) => {
-      aggregatorIndividualsEvent(message, server)
-    })
+    server.bus.listen('EVENT_COLLECTOR_RETHINK', (message) => { collectorRethinkEvent(message, server) })
+    server.bus.listen('EVENT_COLLECTOR_POSTGRES', (message) => { collectorPostgresEvent(message, server) })
+    server.bus.listen('EVENT_AGGREGATOR_INDIVIDUALS', (message) => { aggregatorIndividualsEvent(message, server) })
+    server.bus.listen('EVENT_AGGREGATOR_ANSWERS_POSTGRES', (message) => { aggregatorAnswersPostgresEvent(message, server) })
     console.log('Bus running at:', url)
   })
 })
