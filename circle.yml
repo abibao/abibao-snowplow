@@ -9,6 +9,7 @@ test:
   override:
     - npm install
     - npm test
+    - npm run coverage:publish
 deployment:
   prod:
     branch: master
