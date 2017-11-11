@@ -11,5 +11,6 @@ build
 tmp
 yarn.lock
 package-lock.json
+nconf.json
 
 /data/

@@ -5,6 +5,7 @@ const Routes = require('./routes')
 
 const collectorRethinkEvent = require('./events/collectorRethinkEvent')
 const collectorPostgresEvent = require('./events/collectorPostgresEvent')
+const aggregatorIndividualsEvent = require('./events/aggregatorIndividualsEvent')
 
 let server = new Hapi.Server({
   debug: false,
@@ -68,6 +69,9 @@ server.start((error) => {
     })
     server.bus.listen('EVENT_COLLECTOR_POSTGRES', (message) => {
       collectorPostgresEvent(message, server)
+    })
+    server.bus.listen('EVENT_AGGREGATOR_INDIVIDUALS', (message) => {
+      aggregatorIndividualsEvent(message, server)
     })
     console.log('Bus running at:', url)
   })

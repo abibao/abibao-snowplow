@@ -5,7 +5,7 @@ module.exports = {
   validate: {
     payload: {
       table: Joi.string().valid(['individuals', 'surveys', 'campaigns', 'campaigns_items', 'campaigns_items_choices']).required(),
-      callback: Joi.string()
+      callback: Joi.string().optional()
     }
   },
   handler (request, reply) {
