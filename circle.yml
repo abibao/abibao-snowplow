@@ -2,7 +2,7 @@ machine:
   timezone:
     Europe/Paris
   node:
-    version: 6
+    version: 8
   services:
     - docker
 test:

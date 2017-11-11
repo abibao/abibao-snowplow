@@ -15,8 +15,8 @@ const rethinkdbDir = path.resolve(__dirname, 'data/collector/rethinkdb')
 const postgresDir = path.resolve(__dirname, 'data/collector/postgres')
 
 let promises = {
-  rethinkdb: glob(rethinkdbDir + '/individuals/**/*.yml'),
-  postgres: glob(postgresDir + '/individuals/**/*.yml')
+  rethinkdb: glob(rethinkdbDir + '/individuals/2017/11/**/*.yml'),
+  postgres: glob(postgresDir + '/individuals/2017/11/**/*.yml')
 }
 
 const aggregator = function (files, key, value) {

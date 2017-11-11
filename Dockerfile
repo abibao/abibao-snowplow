@@ -1,4 +1,4 @@
-FROM library/node:6-alpine
+FROM library/node:8-alpine
 
 MAINTAINER Gilles Perreymond <gperreymond@gmail.com>
 

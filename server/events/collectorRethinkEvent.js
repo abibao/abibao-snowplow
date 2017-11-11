@@ -33,22 +33,23 @@ module.exports = (message, server) => {
         next()
       }, function (err) {
         if (err) { return false }
-        server.r.table(message.table).count().then(function (count) {
-          if (message.skip + message.limit < count) {
-            message.skip += message.limit
-            server.bus.send('EVENT_COLLECTOR_RETHINK', message)
-            return false
-          } else {
-            // callback
-            if (message.callback !== false) {
-              rp({
-                method: 'POST',
-                uri: message.callback
-              })
+        return server.r.table(message.table).count()
+          .then(function (count) {
+            if (message.skip + message.limit < count) {
+              message.skip += message.limit
+              server.bus.send('EVENT_COLLECTOR_RETHINK', message)
+              return false
+            } else {
+              // callback
+              if (message.callback !== false) {
+                rp({
+                  method: 'POST',
+                  uri: message.callback
+                })
+              }
+              return false
             }
-            return false
-          }
-        })
+          })
       })
     })
     .catch(function () {

@@ -14,7 +14,7 @@ const r = require('thinky')(options).r
 const postgresDir = path.resolve(__dirname, 'data/collector/postgres')
 
 let promises = {
-  surveys: glob(postgresDir + '/answers/**/*.yml')
+  surveys: glob(postgresDir + '/answers/2017/11/**/*.yml')
 }
 let results = {}
 
@@ -45,7 +45,7 @@ const resolveAnswers = function () {
                   }
                   return r.table('individuals').filter({urn: survey.individual}).update(individual)
                 } else {
-                  return r.table('answers').insert(survey)
+                  return false // r.table('answers').insert(survey)
                 }
               })
               .then(() => {

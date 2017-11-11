@@ -16,7 +16,7 @@ const rethinkdbDir = path.resolve(__dirname, 'data/collector/rethinkdb')
 const postgresDir = path.resolve(__dirname, 'data/collector/postgres')
 
 let promises = {
-  surveys: glob(rethinkdbDir + '/surveys/**/*.yml'),
+  surveys: glob(rethinkdbDir + '/surveys/2017/11/**/*.yml'),
   campaigns: glob(rethinkdbDir + '/campaigns/**/*.yml'),
   choices: glob(rethinkdbDir + '/campaigns_items_choices/**/*.yml'),
   campaignsNew: glob(postgresDir + '/campaigns/**/*.yml')
@@ -87,7 +87,7 @@ const resolveAnswers = function () {
                           campaign_id: campaignsNew[_.snakeCase(campaigns[survey.campaign].name)] || false,
                           campaign_name: campaigns[survey.campaign].name || false,
                           question: key,
-                          answer: (choices[k]) ? choices[k].text : k,
+                          answer: (choices[k]) ? choices[k].prefix + '_' + choices[k].suffix : k,
                           createdAt: survey.createdAt,
                           updatedAt: survey.modifiedAt
                         })
@@ -100,7 +100,7 @@ const resolveAnswers = function () {
                         campaign_id: campaignsNew[campaignId] || false,
                         campaign_name: campaigns[survey.campaign].name || false,
                         question: key,
-                        answer: (choices[survey.answers[key]]) ? choices[survey.answers[key]].text : survey.answers[key],
+                        answer: (choices[survey.answers[key]]) ? choices[survey.answers[key]].prefix + '_' + choices[survey.answers[key]].suffix : survey.answers[key],
                         createdAt: survey.createdAt,
                         updatedAt: survey.modifiedAt
                       }
@@ -108,7 +108,7 @@ const resolveAnswers = function () {
                   })
                   return r.table('individuals').filter({uuid: survey.individual}).update(individual)
                 } else {
-                  return r.table('answers').insert(survey)
+                  return false // r.table('answers').insert(survey)
                 }
               })
               .then(() => {
