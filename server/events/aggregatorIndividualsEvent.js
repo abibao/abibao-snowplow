@@ -8,25 +8,23 @@ const rp = require('request-promise')
 
 module.exports = (message, server) => {
   console.log('EVENT_AGGREGATOR_INDIVIDUALS', message)
-  const rethinkdbDir = path.resolve(__dirname, '../../data/collector/rethinkdb')
-  const postgresDir = path.resolve(__dirname, '../../data/collector/postgres')
-  let promises = {
-    rethinkdb: glob(rethinkdbDir + '/individuals/**/*.yml'),
-    postgres: glob(postgresDir + '/individuals/**/*.yml')
+  const database = message.source
+  const databaseConvert = {
+    rethinkdb: {
+      key: 'uuid',
+      value: 'id'
+    },
+    postgres: {
+      key: 'urn',
+      value: 'urn'
+    }
   }
-  let allFiles = {}
-  Promise.props(promises)
+  const databaseDir = path.resolve(__dirname, '../../data/collector/' + database)
+  glob(databaseDir + '/individuals/**/*.yml')
     .then(files => {
-      allFiles = files
-      console.log('START', 'rethinkdb', allFiles.rethinkdb.length)
-      return aggregator(server.r, allFiles.rethinkdb, 'uuid', 'id')
+      return aggregator(server.r, files, databaseConvert[database].key, databaseConvert[database].value)
     })
     .then(() => {
-      console.log('START', 'postgres', allFiles.postgres.length)
-      return aggregator(server.r, allFiles.postgres, 'urn', 'urn')
-    })
-    .then(() => {
-      // callback
       console.log('DONE callback')
       if (message.callback !== false) {
         rp({

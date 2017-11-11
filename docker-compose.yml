@@ -14,13 +14,6 @@ services:
     ports:
       - "11211:11211"
 
-  rethinkdb:
-    image: library/rethinkdb
-    ports:
-      - "8080:8080"
-      - "28015:28015"
-      - "29015:29015"
-
   rabbitmq:
     image: rabbitmq:3.6-management-alpine
     environment:
