@@ -1,0 +1,12 @@
+{
+  "ABIBAO_POSTGRES_HOST": "database.abibao.com",
+  "ABIBAO_POSTGRES_PORT": 45432,
+  "ABIBAO_POSTGRES_DB": "platform",
+  "ABIBAO_POSTGRES_USER": "abibao",
+  "ABIBAO_POSTGRES_PASSWORD": "Ysjjc3kGaNhS7MZ8EswH8guchsn9Ju8w5ZVnsuGw",
+  "ABIBAO_RETHINK_HOST": "database.abibao.com",
+  "ABIBAO_RETHINK_PORT": 28115,
+  "ABIBAO_RETHINK_DB": "prodmvp",
+  "ABIBAO_RETHINK_USER": "admin",
+  "ABIBAO_RETHINK_PASSWORD": "9daxNMfGnt2tG84czdsFhZx9Pavv3yaErWGE6FML"
+}
