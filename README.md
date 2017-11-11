@@ -1,4 +1,9 @@
-# rethinkdb
+# abibao-snowplow
+
+[![CircleCI](https://circleci.com/gh/abibao/abibao-snowplow.svg?style=shield)](https://circleci.com/gh/abibao/abibao-snowplow)
+[![CodeFactor](https://www.codefactor.io/repository/github/abibao/abibao-snowplow/badge/master)](https://www.codefactor.io/repository/github/abibao/abibao-snowplow/overview/master)
+
+# rethinkdb examples
 
 ### hasFields not
 
@@ -9,7 +14,7 @@ r.db('aggregators').table('individuals').filter(function(individual) {
 })
 ```
 
-### aggregator example
+### aggregator
 
 ```js
 
