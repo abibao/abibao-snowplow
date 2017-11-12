@@ -1,22 +1,21 @@
 const path = require('path')
 const async = require('async')
-const ProgressBar = require('progress')
 const glob = require('glob')
 const YAML = require('yamljs')
 const rp = require('request-promise')
 
 module.exports = (message, server) => {
-  console.log('EVENT_AGGREGATOR_ANSWERS_POSTGRES', message)
-  const databaseDir = path.resolve(__dirname, '../../data/collector/postgres')
-  const files = glob.sync(databaseDir + '/answers/**/*.yml')
-  const bar = new ProgressBar('  aggregators [:bar] :percent :etas', {width: 40, total: files.length})
-  async.eachLimit(files, 50, (file, next) => {
+  const databaseDir = path.resolve(__dirname, '../../data/collector/postgres', message.data.shift())
+  const files = glob.sync(databaseDir + '/*.yml')
+  console.log('EVENT_AGGREGATOR_ANSWERS_POSTGRES', {data: message.data.length, files: files.length, callback: message.callback})
+  async.eachLimit(files, 10, (file, next) => {
     aggregator(server.r, file, () => {
-      bar.tick()
       next()
     })
   }, () => {
-    console.log('DONE callback')
+    if (message.data.length > 0) {
+      return server.bus.send('EVENT_AGGREGATOR_ANSWERS_POSTGRES', message)
+    }
     if (message.callback !== false) {
       rp({
         method: 'POST',
