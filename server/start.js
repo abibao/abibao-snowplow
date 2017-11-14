@@ -9,14 +9,7 @@ const collectorPostgresEvent = require('./events/collectorPostgresEvent')
 const aggregatorIndividualsEvent = require('./events/aggregatorIndividualsEvent')
 const aggregatorAnswersPostgresEvent = require('./events/aggregatorAnswersPostgresEvent')
 
-let server = new Hapi.Server({
-  debug: false,
-  connections: {
-    routes: {
-      cors: true
-    }
-  }
-})
+let server = new Hapi.Server()
 
 // Rethink
 let options = {
