@@ -28,7 +28,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/postgres \
+          http://snowplow.internal.abibao.com/api/collector/postgres \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=individuals \
@@ -40,7 +40,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/postgres \
+          http://snowplow.internal.abibao.com/api/collector/postgres \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=answers \
@@ -52,7 +52,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/postgres \
+          http://snowplow.internal.abibao.com/api/collector/postgres \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=campaigns \
@@ -64,7 +64,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/rethinkdb \
+          http://snowplow.internal.abibao.com/api/collector/rethinkdb \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=individuals \
@@ -75,7 +75,7 @@ node {
     stage("RethinkDB: surveys") {
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/rethinkdb \
+          http://snowplow.internal.abibao.com/api/collector/rethinkdb \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=surveys \
@@ -86,7 +86,7 @@ node {
     stage("RethinkDB: campaigns") {
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/rethinkdb \
+          http://snowplow.internal.abibao.com/api/collector/rethinkdb \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=campaigns \
@@ -97,7 +97,7 @@ node {
     stage("RethinkDB: items") {
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/rethinkdb \
+          http://snowplow.internal.abibao.com/api/collector/rethinkdb \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=campaigns_items \
@@ -108,7 +108,7 @@ node {
     stage("RethinkDB: choices") {
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/collector/rethinkdb \
+          http://snowplow.internal.abibao.com/api/collector/rethinkdb \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F table=campaigns_items_choices \

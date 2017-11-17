@@ -28,7 +28,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/aggregator/individuals \
+          http://snowplow.internal.abibao.com/api/aggregator/individuals \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F source=rethinkdb \
@@ -40,7 +40,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/aggregator/individuals \
+          http://snowplow.internal.abibao.com/api/aggregator/individuals \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F source=postgres \
@@ -52,7 +52,7 @@ node {
 
       hook = registerWebhook()
       sh  "curl -X POST \
-          http://172.90.0.3:4040/api/aggregator/answers/postgres \
+          http://snowplow.internal.abibao.com/api/aggregator/answers/postgres \
           -H 'cache-control: no-cache' \
           -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
           -F callback=${hook.getURL()}"
